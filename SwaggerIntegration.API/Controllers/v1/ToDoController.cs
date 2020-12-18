@@ -1,18 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using SwaggerIntegration.DAL.Contexts;
 using SwaggerIntegration.DAL.Models;
 
-namespace SwaggerIntegration.API.Controllers
+namespace SwaggerIntegration.API.Controllers.v1
 {
     [Produces("application/json")]
+    [ApiVersion(V.v1_0)]
     [ApiController]
-    [Route("[controller]")]
+    //[Route("[controller]")]
+    [Route("api/v{version:apiVersion}/[controller]")]
     public class ToDoController : ControllerBase
     {
         private readonly TodoContext _todoContext;
@@ -29,6 +30,7 @@ namespace SwaggerIntegration.API.Controllers
         /// GET /Todo
         /// </remarks>
         /// <returns>List of ToDos</returns>
+        [MapToApiVersion(V.v1_0)]
         [HttpGet]
         public async Task<IEnumerable<ToDoItem>> Get()
         {
